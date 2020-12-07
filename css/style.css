@@ -1,0 +1,117 @@
+section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 5%;
+}
+
+#outline{
+    width: 290px;
+    height: 425px;
+    border: 10px solid #333333;
+    padding: 2%;
+    border-radius: 10px;
+    background-color: black;
+}
+
+#calculator{
+    display: flex;
+   /* border: 1px solid red;*/
+    width: 100%;
+    height: 100%;
+}
+
+.calculator_row{
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid black;
+    padding: 2%;
+    
+}
+
+
+
+.last_row div{
+    width: 33%;
+}
+
+.BGDarkgray{
+    background-color: #333333;
+    border: 1px solid #333333;
+    color: white;
+}
+
+.BGlightgray{
+    background-color: #cccccc;
+    border: 1px solid #cccccc;
+    color: black;
+}
+.BGOrange{
+    color: white;
+    background-color: #FF8C00;
+    border: 1px solid #FF8C00 ;
+}
+
+button{
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+.number{
+    font-size: 24px;
+    font-weight: bold; 
+}
+
+.calculator_row div{
+    display: flex;
+    width: 23%;
+    border-radius: 50px;
+    justify-content: center;
+    /*padding: 5px 10px 5px 10px;*/
+    
+    
+   /* border: 1px solid black;*/
+}
+
+.grow{
+    flex-basis: 48%;
+}
+
+.normal_grow{
+    flex-basis: 23%;
+}
+
+.left_margin{
+    margin-left: 5%;
+}
+
+.row{
+    flex-direction: row;
+}
+
+.column{
+    flex-direction: column;
+}
+
+/*input (text and button)*/
+.h_line{
+    width:100%;
+}
+
+#result{
+   width: 97%;
+}
+
+input[type="text"]{
+    width: 100%;
+    font-size: 48px;
+    text-align: right;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    
+}
