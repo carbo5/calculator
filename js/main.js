@@ -1,9 +1,9 @@
-let first_number = 0;
-let second_number = 0;
-let operator_calc = '';
+let first_number = '';
+let second_number = '';
 let total = document.querySelector("#result");
 let operators_calc = []
 let point_decimal = false;
+let nbOperateur = 0;
 
 function add(number_one, number_two){
     return number_one + number_two;
@@ -18,81 +18,62 @@ function multiply(number_one, number_two){
 }
 
 function divide(number_one, number_two){
-    return number_one / number_two;
+   if(number_two !== 0){
+       return number_one / number_two;
+   }else{
+       return "Come on!!!";
+   } 
+    
 }
 
 function operate(operator, number_one,number_two){
     
 
     switch(operator){
-        case '+': total.value = add(number_one, number_two);
+        case '+': first_number = add(number_one, number_two).toString();
+                  //nbOperation++;  
                   //console.log(total.value);
         break;
-        case '-': total.value = substract(number_one,number_two);
+        case '-': console.log(number_one,number_two);
+                    first_number = substract(number_one,number_two).toString();
+                    //nbOperation++;
         break;
-        case 'X': total.value = multiply(number_one, number_two);
+        case 'X': first_number = multiply(number_one, number_two).toString();
+                  //nbOperation++;  
         break;
-        case '/' : total.value = divide(number_one, number_two);
+        case '/' : first_number = divide(number_one, number_two).toString();
+                   //nbOperation++; 
         break;
     }
 
     operator = '';
 }
 
+//À refactorer
 
 function retrieveNumber(){
-   // let total = document.querySelector("#result");
-    console.log(total.value);
-    if(parseFloat(total.value) === 0 && !total.value.includes('.') && operators_calc.length === 0){
-        
-        first_number = this.textContent;
+
+    console.log(first_number);
+
+    if(first_number === '' && operators_calc.length === 0){
+       // total.value = ''
+        first_number += this.textContent;
         total.value = first_number;
-        second_number = '';
-
+    }else if(first_number !== '' && operators_calc.length === 0){
+        first_number += this.textContent;
+        total.value = first_number;
+    }else if(first_number !== '' && operators_calc.length === 1){
+        console.log(second_number);
        
-    }else if(parseFloat(total.value) !== 0 && !total.value.includes('.') && operators_calc.length === 0){
-        
-        total.value += this.textContent;
-        first_number = total.value;
-
-    }else if(total.value.includes('.') && point_decimal === true /* && operators_calc.length === 0*/){
-        console.log('dans décimal');
-        total.value += this.textContent;
-        console.log(total.value);
-        first_number = total.value;
-        //first_number = total.value;
-    }else{
-        //To do
-        if(operators_calc.length === 1  /*|| operators_calc.length === 0*/){
-            
-            //first_number = total.value;
-            total.value = '';
-            second_number  += this.textContent;
-             total.value = second_number;
-            //total.value = second_number; 
-            //console.log(operator_calc);
-            console.log(first_number);
-            console.log(second_number);
-        }else{
-            
-            //total.value = second_number
-         /*  if(operators_calc.length === 2){
-                //first_number = total.value;
-                total.value += this.textContent;
-                 second_number = total.value;   
-                //operate(operators_calc[1],first_number , second_number );
-                //operators_calc.shift();
-           }else{
-                total.value += this.textContent;
-           }*/
-            
-        }
-            
-        
+         second_number += this.textContent;
+         total.value = second_number;
+    }else if(first_number !== '' && operators_calc.length === 2){
+        second_number += this.textContent;
+        total.value = second_number;
     }
-       
-   // total.value = this.textContent; 
 }
+
+
 
 let numbers = document.querySelectorAll(".number");
 
@@ -107,34 +88,59 @@ let operators = document.querySelectorAll('.BGOrange');
 
 operators.forEach((operator) => {
     operator.addEventListener('click', ()=> {
-        console.log(operator.textContent);
+       nbOperateur++; 
        // operator_calc = operator.textContent;
        point_decimal = false;
+       //operators_calc.push(operator.textContent); 
+       console.log(operators_calc.length);
 
        if(operators_calc.length === 0){
             operators_calc.push(operator.textContent);
-            first_number = total.value;
+            nbOperateur = 0;
+            //first_number = total.value;
        }else if(operators_calc.length === 1){
            operators_calc.push(operator.textContent);
+           nbOperateur  = 0;
            //first_number = total.value;
            
        } 
        
        if(operators_calc.length === 2){
-           console.log(first_number);
-           console.log(second_number);
-         if(first_number !== '' && second_number !== ''){
+           //console.table(operators_calc);
+           console.log('Nombre D\'op :' + nbOperation);
+           //console.log(second_number);
+         if(first_number !== '' && second_number !== '' && nbOperateur < 2){
             operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
-            first_number  = total.value;
+            nbOperateur = 0;
+            total.value = first_number;
             second_number = '';
             operators_calc.shift();
-         }else{
+
+         /*Le problème se situe au niveau des ces conditions*/   
+         }else if(first_number !== '' && second_number !== '' && nbOperateur < 2){
+            operate(operators_calc[1],parseFloat(first_number) , parseFloat(second_number));
+            total.value = first_number;
+            nbOperateur = 0;
+            second_number = '';
+            operators_calc.shift(); 
+         }else if(first_number !== '' && second_number === '' && nbOperateur === 2) {
+            //operate(operators_calc[1],parseFloat(first_number) , parseFloat(second_number));
+            total.value = first_number;
+            operators_calc[1] = operator.textContent;
+            second_number = '';
+            nbOperateur = 1;
+            //operators_calc.shift();
+         }else if(second_number === ''){
+             console.log(operator.textContent);
              operators_calc[1] = operator.textContent;
+             console.log(first_number + ',' + second_number);
+             //console.table(operators_calc);
+            // operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
          }  
            
        } 
+       console.table(operators_calc);
         
-        console.table(operators_calc);
         });
 });
 
@@ -145,18 +151,23 @@ let AC_calc = document.querySelector('button[name="ac"]');
 
 AC_calc.addEventListener('click', () => {
     total.value = 0;
-    first_number = 0;
-    second_number = 0;
+    first_number = '';
+    second_number = '';
     operators_calc = [];
+    nbOperation = 0;
 });
 
 //Bouton %
 let percent = document.querySelector('button[name="percent"]');
 
 percent.addEventListener('click', () => {
-    if(total.value !== '0'){
-        total.value = parseFloat(total.value) / 100;
-        first_number = total.value;
+    if(first_number !== '' && second_number === ''){
+        first_number = parseFloat(first_number) / 100;
+        total.value = first_number;
+        point_decimal = false;
+    }else if(second_number !== '' && operators_calc.length > 0){
+        second_number = parseFloat(first_number) / 100;
+        total.value = second_number;
         point_decimal = false;
     }
 })
@@ -165,12 +176,25 @@ percent.addEventListener('click', () => {
 let plusMoins = document.querySelector('button[name="plus_moins"]');
 
 plusMoins.addEventListener('click', () => {
-    if(total.value.includes('-')){
-        total.value = total.value.slice(1);
-        //first_number = total.value;
-    }else if(total.value !== '0'){
-        total.value = '-' + total.value;
+    console.log(typeof first_number);
+
+    if(second_number === '' && first_number.includes('-') && total.value !== '0'){
+        first_number = first_number.slice(1);
+        total.value = first_number;
+    }else if(second_number === '' && !first_number.includes('-') && total.value !== '0'){
+        first_number = '-' + first_number;
+        total.value = first_number;
         //ffirst_number = total.value;
+    }else if(second_number !== '' && !second_number.includes('-') && total.value !== '0'){
+        second_number = '-' + second_number;
+        total.value = second_number;
+    }else if (first_number === '' && total.value === '0'){
+        total.value === '0';
+    }else if(second_number === '0' && operators_calc.length > 0){
+        total.value = '0';
+    }else if(second_number.includes('-')){
+        second_number = second_number.slice(1);
+        total.value = second_number;
     }
 });
 
@@ -178,10 +202,22 @@ plusMoins.addEventListener('click', () => {
 let point = document.querySelector('button[name="point"]');
 
 point.addEventListener('click' ,() => {
-    if(!total.value.includes('.')){
-        total.value = total.value + '.';
-        point_decimal = true
+    if(second_number === '' &&  !first_number.includes('.') && operators_calc.length === 0){
+       if(first_number === ''){
+           first_number += '0.';
+           total.value = first_number;
+           console.log(first_number); 
+       }else{
+           first_number += '.';
+           total.value = first_number;
+           point_decimal = true;
+       } 
+        
        // first_number = total.value;
+    }else if(second_number !== '' && !second_number.includes('.') && operators_calc.length > 0){
+        second_number += '.';
+        total.value = second_number;
+        point_decimal = true;
     } 
 });
 
