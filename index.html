@@ -8,18 +8,22 @@
     <title>Calculator</title>
 </head>
 <body>
+    <header>
+        <h1>Calculator</h1>
+        
+    </header>
     <main>
         <section>
             <div id="outline">
                 <div id="calculator" class="column">
                     <div class="h_line" >
-                        <input type="text" name="result" id="result" value="0">
+                        <input type="text" name="result" id="result" value="0" disabled>
                     </div>
                     <div class="calculator_row row">
                         <div ><button name="ac" class="BGlightgray">AC</button></div>
                         <div ><button name="plus_moins" class="BGlightgray">+/-</button></div>
                         <div class="BGlightgray"><button name="percent" class="BGlightgray">%</button></div>
-                        <div><button name="divide" class="BGOrange">&divide;</button></div>
+                        <div><button name="divide" class="BGOrange">/</button></div>
                     </div>
                     <div class="calculator_row row">
                         <div><button name="sept" class="number BGDarkgray">7</button></div>
@@ -49,5 +53,7 @@
             </div>
         </section>
     </main>
+
+    <script src="./js/main.js"></script>
 </body>
 </html>
