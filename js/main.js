@@ -274,6 +274,14 @@ point.addEventListener('click' ,() => {
             total.value = second_number; 
         }
         point_decimal = true;
+    }else if(second_number === '' && !second_number.includes('.') && operators_calc.length > 0){
+        second_number += '0.';
+        if(second_number.length > 23){
+            total.value = second_number.substring(0,23); 
+        }else{
+            total.value = second_number; 
+        }
+        point_decimal = true;
     } 
 });
 
