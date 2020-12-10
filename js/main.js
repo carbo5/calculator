@@ -58,18 +58,40 @@ function retrieveNumber(){
     if(first_number === '' && operators_calc.length === 0){
        // total.value = ''
         first_number += this.textContent;
-        total.value = first_number;
+        
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
+            
     }else if(first_number !== '' && operators_calc.length === 0){
+
         first_number += this.textContent;
-        total.value = first_number;
+
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
     }else if(first_number !== '' && operators_calc.length === 1){
         console.log(second_number);
-       
-         second_number += this.textContent;
-         total.value = second_number;
+        second_number += this.textContent;
+        
+        if(second_number.length > 23){
+           total.value = second_number.substring(0,23); 
+        }else{
+           total.value = second_number; 
+        }
+        
     }else if(first_number !== '' && operators_calc.length === 2){
         second_number += this.textContent;
-        total.value = second_number;
+
+        if(second_number.length > 23){
+           total.value = second_number.substring(0,23); 
+        }else{
+           total.value = second_number; 
+        }
     }
 }
 
@@ -100,7 +122,11 @@ operators.forEach((operator) => {
             //first_number = total.value;
        }else if(operators_calc.length === 1 && first_number !== '' && second_number !== ''){
             operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
-            total.value = first_number;
+            if(first_number.length > 23){
+                total.value = first_number.substring(0,23);
+            }else{
+                total.value = first_number;
+            }
             second_number = '';
             operators_calc.shift();   
             operators_calc.push(operator.textContent);
@@ -127,7 +153,12 @@ equal.addEventListener('click',() => {
     if(first_number !== '' && second_number !== '' && operators_calc.length === 1){
         console.log(first_number,second_number);
         operate(operators_calc[0], parseFloat(first_number), parseFloat(second_number));
-        total.value = first_number;
+        console.log(`First number dans égal ${first_number}`)
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
         second_number = '';
         operators_calc.shift();
     }
@@ -152,11 +183,19 @@ let percent = document.querySelector('button[name="percent"]');
 percent.addEventListener('click', () => {
     if(first_number !== '' && second_number === ''){
         first_number = (parseFloat(first_number) / 100).toString();
-        total.value = first_number;
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
         point_decimal = false;
     }else if(second_number !== '' && operators_calc.length > 0){
         second_number = (parseFloat(first_number) / 100).toString();
-        total.value = second_number;
+        if(second_number.length > 23){
+            total.value = second_number.substring(0,23); 
+         }else{
+            total.value = second_number; 
+        }
         point_decimal = false;
     }
 })
@@ -169,21 +208,37 @@ plusMoins.addEventListener('click', () => {
 
     if(second_number === '' && first_number.includes('-') && total.value !== '0'){
         first_number = first_number.slice(1);
-        total.value = first_number;
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
     }else if(second_number === '' && !first_number.includes('-') && total.value !== '0'){
         first_number = '-' + first_number;
-        total.value = first_number;
+        if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+        }else{
+            total.value = first_number;
+        }
         //ffirst_number = total.value;
     }else if(second_number !== '' && !second_number.includes('-') && total.value !== '0'){
         second_number = '-' + second_number;
-        total.value = second_number;
+        if(second_number.length > 23){
+            total.value = second_number.substring(0,23); 
+        }else{
+            total.value = second_number; 
+        }
     }else if (first_number === '' && total.value === '0'){
         total.value === '0';
     }else if(second_number === '0' && operators_calc.length > 0){
         total.value = '0';
     }else if(second_number.includes('-')){
         second_number = second_number.slice(1);
-        total.value = second_number;
+        if(second_number.length > 23){
+            total.value = second_number.substring(0,23); 
+        }else{
+            total.value = second_number; 
+        }
     }
 });
 
@@ -194,18 +249,30 @@ point.addEventListener('click' ,() => {
     if(second_number === '' &&  !first_number.includes('.') && operators_calc.length === 0){
        if(first_number === ''){
            first_number += '0.';
-           total.value = first_number;
+           if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+           }else{
+            total.value = first_number;
+           }
            console.log(first_number); 
        }else{
            first_number += '.';
-           total.value = first_number;
+           if(first_number.length > 23){
+            total.value = first_number.substring(0,23);
+           }else{
+            total.value = first_number;
+           }
            point_decimal = true;
        } 
         
        // first_number = total.value;
     }else if(second_number !== '' && !second_number.includes('.') && operators_calc.length > 0){
         second_number += '.';
-        total.value = second_number;
+        if(second_number.length > 23){
+            total.value = second_number.substring(0,23); 
+        }else{
+            total.value = second_number; 
+        }
         point_decimal = true;
     } 
 });
