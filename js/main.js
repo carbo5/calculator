@@ -34,7 +34,7 @@ function operate(operator, number_one,number_two){
                   //nbOperation++;  
                   //console.log(total.value);
         break;
-        case '-': console.log(number_one,number_two);
+        case '-': 
                     first_number = substract(number_one,number_two).toString();
                     //nbOperation++;
         break;
@@ -46,7 +46,7 @@ function operate(operator, number_one,number_two){
         break;
     }
 
-    operator = '';
+    
 }
 
 //À refactorer
@@ -98,50 +98,39 @@ operators.forEach((operator) => {
             operators_calc.push(operator.textContent);
             nbOperateur = 0;
             //first_number = total.value;
-       }else if(operators_calc.length === 1){
-           operators_calc.push(operator.textContent);
-           nbOperateur  = 0;
+       }else if(operators_calc.length === 1 && first_number !== '' && second_number !== ''){
+            operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
+            total.value = first_number;
+            second_number = '';
+            operators_calc.shift();   
+            operators_calc.push(operator.textContent);
+            nbOperateur  = 0;
+
            //first_number = total.value;
-           
+       }else if(second_number === ''){
+           console.log('Je passse');
+           operators_calc[0] = operator.textContent;
+           console.table(operators_calc[0]);
        } 
        
-       if(operators_calc.length === 2){
-           //console.table(operators_calc);
-           console.log('Nombre D\'op :' + nbOperation);
-           //console.log(second_number);
-         if(first_number !== '' && second_number !== '' && nbOperateur < 2){
-            operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
-            nbOperateur = 0;
-            total.value = first_number;
-            second_number = '';
-            operators_calc.shift();
-
-         /*Le problème se situe au niveau des ces conditions*/   
-         }else if(first_number !== '' && second_number !== '' && nbOperateur < 2){
-            operate(operators_calc[1],parseFloat(first_number) , parseFloat(second_number));
-            total.value = first_number;
-            nbOperateur = 0;
-            second_number = '';
-            operators_calc.shift(); 
-         }else if(first_number !== '' && second_number === '' && nbOperateur === 2) {
-            //operate(operators_calc[1],parseFloat(first_number) , parseFloat(second_number));
-            total.value = first_number;
-            operators_calc[1] = operator.textContent;
-            second_number = '';
-            nbOperateur = 1;
-            //operators_calc.shift();
-         }else if(second_number === ''){
-             console.log(operator.textContent);
-             operators_calc[1] = operator.textContent;
-             console.log(first_number + ',' + second_number);
-             //console.table(operators_calc);
-            // operate(operators_calc[0],parseFloat(first_number) , parseFloat(second_number));
-         }  
-           
-       } 
+      
+         
        console.table(operators_calc);
         
         });
+});
+
+//Bouton égal
+const equal = document.querySelector('button[name="egal"]');
+
+equal.addEventListener('click',() => {
+    if(first_number !== '' && second_number !== '' && operators_calc.length === 1){
+        console.log(first_number,second_number);
+        operate(operators_calc[0], parseFloat(first_number), parseFloat(second_number));
+        total.value = first_number;
+        second_number = '';
+        operators_calc.shift();
+    }
 });
 
 
@@ -162,11 +151,11 @@ let percent = document.querySelector('button[name="percent"]');
 
 percent.addEventListener('click', () => {
     if(first_number !== '' && second_number === ''){
-        first_number = parseFloat(first_number) / 100;
+        first_number = (parseFloat(first_number) / 100).toString();
         total.value = first_number;
         point_decimal = false;
     }else if(second_number !== '' && operators_calc.length > 0){
-        second_number = parseFloat(first_number) / 100;
+        second_number = (parseFloat(first_number) / 100).toString();
         total.value = second_number;
         point_decimal = false;
     }

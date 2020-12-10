@@ -55,7 +55,7 @@ section{
     border: 1px solid #cccccc;
     color: black;
 }
-.BGOrange{
+.BGOrange, .BGOrangeEgal{
     color: white;
     background-color: #FF8C00;
     border: 1px solid #FF8C00 ;
